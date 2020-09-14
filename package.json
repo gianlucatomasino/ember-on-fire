@@ -1,13 +1,20 @@
 {
   "name": "ember-on-fire",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "An alternative supported adapter for using Firebase with Ember",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "firebase"
   ],
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gianlucatomasino/ember-on-fire.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gianlucatomasino/ember-on-fire/issues"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "Gianluca Tomasino",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -44,6 +51,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^8.0.2",
+    "ember-simple-auth": "^3.0.0",
     "ember-source": "~3.21.1",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^2.11.0",
@@ -53,7 +61,8 @@
     "eslint-plugin-node": "^11.1.0",
     "loader.js": "^4.7.0",
     "npm-run-all": "^4.1.5",
-    "qunit-dom": "^1.4.0"
+    "qunit-dom": "^1.4.0",
+    "firebase": "^7.20.0"
   },
   "engines": {
     "node": "10.* || >= 12"
