@@ -1,6 +1,6 @@
 {
   "name": "ember-on-fire",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An alternative supported adapter for using Firebase with Ember",
   "keywords": [
     "ember-addon",
@@ -14,7 +14,7 @@
     "url": "https://github.com/gianlucatomasino/ember-on-fire/issues"
   },
   "license": "MIT",
-  "author": "Gianluca Tomasino",
+  "author": "Gianluca Tomasino <gianluca.tomasino@gmail.com>",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -32,6 +32,8 @@
   "dependencies": {
     "ember-cli-babel": "^7.22.1",
     "ember-cli-htmlbars": "^5.3.1"
+    "ember-simple-auth": "^3.0.0",
+    "firebase": "^7.20.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
@@ -51,7 +53,6 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^8.0.2",
-    "ember-simple-auth": "^3.0.0",
     "ember-source": "~3.21.1",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^2.11.0",
@@ -62,7 +63,6 @@
     "loader.js": "^4.7.0",
     "npm-run-all": "^4.1.5",
     "qunit-dom": "^1.4.0",
-    "firebase": "^7.20.0"
   },
   "engines": {
     "node": "10.* || >= 12"
