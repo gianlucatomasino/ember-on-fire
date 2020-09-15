@@ -1,6 +1,6 @@
 {
   "name": "ember-on-fire",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An alternative supported adapter for using Firebase with Ember",
   "keywords": [
     "ember-addon",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "ember-cli-babel": "^7.22.1",
-    "ember-cli-htmlbars": "^5.3.1"
+    "ember-cli-htmlbars": "^5.3.1",
     "ember-simple-auth": "^3.0.0",
     "firebase": "^7.20.0"
   },
