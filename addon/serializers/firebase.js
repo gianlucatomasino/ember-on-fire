@@ -8,7 +8,7 @@ export default class FirebaseSerializer extends JSONAPISerializer {
 
        if (requestType==='findRecord') {
             key = id;
-            attributes = payload;
+            attributes = payload.data();
         }
 
         if (requestType==='createRecord') {
@@ -16,14 +16,17 @@ export default class FirebaseSerializer extends JSONAPISerializer {
             attributes = payload.data();                                
         }
 
-
-        return {
+        let json = {
             data: {               
                 id: key, 
                 attributes: { ...attributes },
                 type: primaryModelClass.modelName
             }            
         };
+
+        console.log(json);
+
+        return json;
     }
 
     serialize(snapshot, options) {
