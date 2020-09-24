@@ -1,0 +1,1 @@
+export { default } from 'ember-on-fire/adapters/firebase';

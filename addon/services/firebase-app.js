@@ -2,6 +2,7 @@ import Service from '@ember/service';
 import { getOwner } from '@ember/application';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 export default class FirebaseAppService extends Service {
     constructor(){
@@ -19,5 +20,9 @@ export default class FirebaseAppService extends Service {
     
     auth() {
         return firebase.auth(this.app);
+    }
+
+    firestore() {
+        return firebase.firestore();
     }
 }
