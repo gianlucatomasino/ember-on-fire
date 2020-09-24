@@ -6,27 +6,60 @@ export default class FirebaseSerializer extends JSONAPISerializer {
         let key = null;
         let attributes = null;
 
-       if (requestType==='findRecord') {
+        console.log(payload);
+        console.log(requestType);
+
+        if (requestType==='findRecord') {
             key = id;
             attributes = payload.data();
-        }
+
+            let json = {
+                data: {               
+                    id: key, 
+                    attributes: { ...attributes },
+                    type: primaryModelClass.modelName
+                }            
+            };
+
+            return json;
+        } 
 
         if (requestType==='createRecord') {
             key = payload.id;
-            attributes = payload.data();                                
+            attributes = payload.data();  
+            
+            let json = {
+                data: {               
+                    id: key, 
+                    attributes: { ...attributes },
+                    type: primaryModelClass.modelName
+                }            
+            };
+
+            return json;
         }
 
-        let json = {
-            data: {               
-                id: key, 
-                attributes: { ...attributes },
-                type: primaryModelClass.modelName
-            }            
-        };
+        if (requestType==='findAll') {
+            let docs = [];
+            payload.forEach(doc => {
+                attributes = doc.data();
+                key = doc.id;
+                
+                docs.push({
+                    id: key, 
+                    attributes: { ...attributes },
+                    type: primaryModelClass.modelName    
+                });                
+            });
 
-        console.log(json);
+            let json = {
+                data: [
+                    ...docs
+                ]
+            }
 
-        return json;
+            return json;            
+        }
     }
 
     serialize(snapshot, options) {

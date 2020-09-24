@@ -18,4 +18,10 @@ export default class FirebaseAdapter extends Adapter {
         
         return this.firebaseApp.firestore().collection(collection).doc(id).get();
     }
+
+    async findAll(store, type, neverSet, snapshotRecordArray) {
+        let collection = pluralize(type.modelName);
+        
+        return this.firebaseApp.firestore().collection(collection).get();
+    }
 }
