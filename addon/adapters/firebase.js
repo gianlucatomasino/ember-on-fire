@@ -24,4 +24,20 @@ export default class FirebaseAdapter extends Adapter {
         
         return this.firebaseApp.firestore().collection(collection).get();
     }
+
+    query(store, type, query, recordArray) {        
+        let collection = this.firebaseApp.firestore().collection(pluralize(type.modelName));
+        let q = null;
+
+        query.where.forEach(function(w, i) {
+            if (i === 0) {
+                q = collection.where(w.field, w.op, w.value);
+            }
+            else { 
+                q = q.where(w.field, w.op, w.value);
+            }
+        });
+
+        return q.get();
+    }
 }

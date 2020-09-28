@@ -1,16 +1,11 @@
 ember-on-fire
 ==============================================================================
 
-Ember on fire is an adapter for use Firebase in Ember.
-
-
-Compatibility
-------------------------------------------------------------------------------
-
-* Ember.js v3.16 or above
-* Ember CLI v2.13 or above
-* Node.js v10 or above
-
+Ember OnFire is an adapter for use Firebase with Ember. 
+Currently the following are the services implemented:
+ 
+ - **Ember Data Adapters**: [Cloud Firestore](https://firebase.google.com/docs/firestore/) adapters for Ember Data allow you to persist your models in Firebase
+ - **Authentication Providers** - Integrate [Firebase Authentication](https://firebase.google.com/docs/auth/) with your Ember application easily with providers for [Ember Simple Auth](http://ember-simple-auth.com/)
 
 Installation
 ------------------------------------------------------------------------------
@@ -19,13 +14,10 @@ Installation
 ember install ember-on-fire
 ```
 
-Add configuration
+Add configuration to 
 
 ```js
 let ENV = {
-
-    
-
     firebase: {
       apiKey: "key",
       authDomain: "app.firebaseapp.com",
@@ -80,11 +72,10 @@ export default class SampleController extends Controller {
 }
 ```
 
-Usage
-------------------------------------------------------------------------------
+## Documentation
 
-Coming soon...
-
+* [Quickstart](docs/quickstart.md)
+* [Guide](docs/guide/README.md)
 
 Contributing
 ------------------------------------------------------------------------------
