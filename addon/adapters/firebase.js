@@ -4,6 +4,11 @@ import { pluralize } from 'ember-inflector';
 
 export default class FirebaseAdapter extends Adapter {
     @service firebaseApp;
+    operators = [
+        {  gt: ">" },
+        {  lt: "<" },
+        { lte: "<=" }
+    ]
 
     async createRecord(store, type, snapshot) {
         let data = this.serialize(snapshot, { includeId: true });
@@ -27,17 +32,17 @@ export default class FirebaseAdapter extends Adapter {
 
     query(store, type, query, recordArray) {        
         let collection = this.firebaseApp.firestore().collection(pluralize(type.modelName));
-        let q = null;
+        let firebaseQuery = null;
 
-        query.where.forEach(function(w, i) {
-            if (i === 0) {
-                q = collection.where(w.field, w.op, w.value);
+        query.filters.forEach(function(filter, index) {
+            if (index === 0) {
+                firebaseQuery = collection.where(filter.field, filter.op, filter.value);
             }
             else { 
-                q = q.where(w.field, w.op, w.value);
+                firebaseQuery = firebaseQuery.where(filter.field, filter.op, filter.value);
             }
         });
 
-        return q.get();
+        return firebaseQuery.get();
     }
 }
