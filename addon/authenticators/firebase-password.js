@@ -4,7 +4,7 @@ import { resolve } from 'rsvp';
 
 export default class FirebasePasswordAuthenticator extends Base {
   @service firebaseApp;
-  
+
   restore(data) {
     return resolve(data);
   }

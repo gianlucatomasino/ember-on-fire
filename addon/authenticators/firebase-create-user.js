@@ -2,9 +2,9 @@ import Base from 'ember-simple-auth/authenticators/base';
 import { inject as service } from '@ember/service';
 import { resolve } from 'rsvp';
 
-export default class FirebaseCreateUserAuthenticator extends Base {
+export default class FirebaseCreateUserAuthenticator extends Base {  
   @service firebaseApp;
-  
+
   restore(data) {
     return resolve(data);
   }

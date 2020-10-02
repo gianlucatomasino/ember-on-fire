@@ -1,5 +1,4 @@
 import JSONAPISerializer from '@ember-data/serializer/json-api';
-import { pluralize } from 'ember-inflector';
 import { getOwner } from '@ember/application';
 
 export default class FirebaseSerializer extends JSONAPISerializer {
@@ -8,8 +7,10 @@ export default class FirebaseSerializer extends JSONAPISerializer {
         let attributes = null;
 
         if (requestType==='findRecord') {
+            console.log(payload.include);
+
             key = id;
-            attributes = payload.data();
+            attributes = payload.primaryModel.data();
 
             let json = {
                 data: {               
@@ -18,7 +19,7 @@ export default class FirebaseSerializer extends JSONAPISerializer {
                     type: primaryModelClass.modelName
                 }            
             };
-
+            
             return json;
         } 
 
@@ -64,6 +65,9 @@ export default class FirebaseSerializer extends JSONAPISerializer {
     serialize(snapshot, options) {
         var json = {};        
         let self = this;
+
+        console.log(snapshot);
+        console.log(options);
 
         snapshot.eachAttribute(function(key, attribute) {
             let transform = getOwner(self).lookup('transform:' + attribute.type);                
