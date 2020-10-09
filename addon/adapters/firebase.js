@@ -9,7 +9,6 @@ export default class FirebaseAdapter extends Adapter {
     @service firebaseApp;
 
     async createRecord(store, type, snapshot) {
-        console.log(snapshot);
         let collection = pluralize(type.modelName);
 
         snapshot.eachRelationship((name, relationship) => {
