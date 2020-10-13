@@ -25,6 +25,24 @@ export default class FirebaseAdapter extends Adapter {
         return { data: this._convertRecordToJsonApi(await doc.get(), type.modelName) }; 
     }
 
+    async updateRecord(store, type, snapshot) {    
+        let collection = pluralize(type.modelName);
+
+        snapshot.eachRelationship((name, relationship) => {
+            if (relationship.kind  === 'belongsTo') {
+                let belongsTo = snapshot.belongsTo(name);
+
+                collection = pluralize(belongsTo.modelName) + "/" 
+                                + belongsTo.id + "/" 
+                                + pluralize(type.modelName)
+            }            
+        });
+        let record = await this.firebaseApp.firestore().collection(collection).doc(snapshot.id);        
+        await record.update(this._convertJsonApiToDoc(snapshot));
+        let doc = await this.firebaseApp.firestore().collection(collection).doc(snapshot.id);        
+        return { data: this._convertRecordToJsonApi(await doc.get(), type.modelName) }; 
+    }
+
     async findRecord(store, type, id, snapshot) {    
         let json = {};
         let record = await this.firebaseApp.firestore().collection(pluralize(type.modelName)).doc(id).get();        
