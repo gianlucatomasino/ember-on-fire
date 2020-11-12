@@ -6,6 +6,8 @@ import 'firebase/firestore';
 import 'firebase/functions';
 
 export default class FirebaseAppService extends Service {
+    config = null;
+
     constructor(){
         super(...arguments);
 
@@ -20,14 +22,27 @@ export default class FirebaseAppService extends Service {
     }
     
     auth() {
-        return firebase.auth(this.app);
+        let auth = firebase.auth(this.app);
+        if (this.config['useEmulator']) {
+            auth.useEmulator('http://localhost:9099/');
+        }
+        return auth;
     }
 
     firestore() {
-        return firebase.firestore();
+        let db = firebase.firestore();
+        if (this.config['useEmulator']) {
+            db.useEmulator("localhost", 8080);
+        }
+
+        return db; 
     }
 
     functions() {
-        return firebase.functions;
+        let functions = firebase.functions;
+        if (this.config['useEmulator']) {
+            functions.useEmulator("localhost", 5001);
+        }
+        return functions;
     }
 }

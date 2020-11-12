@@ -6,7 +6,11 @@ export default class FirebasePasswordAuthenticator extends Base {
   @service firebaseApp;
 
   restore(data) {
-    return resolve(data);
+    if (this.firebase.auth().currentUser) {
+      return resolve(data);
+    }
+
+    return null;
   }
 
   authenticate(email, password) {
