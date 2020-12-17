@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
+import 'firebase/analytics';
 
 export default class FirebaseAppService extends Service {
     config = null;
@@ -13,8 +14,10 @@ export default class FirebaseAppService extends Service {
 
         let env = getOwner(this).resolveRegistration('config:environment');
         this.config = env['firebase'] || {};
-        firebase.initializeApp(this.config);
-        this.app = firebase.app();
+        if (!firebase.apps.length) {
+            firebase.initializeApp(this.config);
+            this.app = firebase.app();
+        }
     }
 
     getConfiguration() {   
@@ -30,12 +33,14 @@ export default class FirebaseAppService extends Service {
     }
 
     firestore() {
-        let db = firebase.firestore();
-        if (this.config['useEmulator']) {
-            db.useEmulator("localhost", 8080);
+        if (!this.db) {
+            this.db = firebase.firestore(this.app);
+            if (this.config['useEmulator']) {
+                this.db.useEmulator("localhost", 8080);
+            }
         }
 
-        return db; 
+        return this.db
     }
 
     functions() {
@@ -44,5 +49,17 @@ export default class FirebaseAppService extends Service {
             functions.useEmulator("localhost", 5001);
         }
         return functions;
+    }
+
+    analytics() {
+        return firebase.analytics(this.app);
+    }
+
+    facebookProvider() {
+        return new firebase.auth.FacebookAuthProvider();
+    }
+
+    googleProvider() {
+        return new firebase.auth.GoogleAuthProvider();
     }
 }
