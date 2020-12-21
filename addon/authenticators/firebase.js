@@ -2,15 +2,15 @@ import Base from 'ember-simple-auth/authenticators/base';
 import { inject as service } from '@ember/service';
 import { resolve } from 'rsvp';
 
-export default class FirebaseFacebookAuthenticator extends Base {
+export default class FirebaseAuthenticator extends Base {  
   @service firebaseApp;
-  
+
   restore(data) {
     return resolve(data);
   }
 
-  authenticate() {
-    return this.firebaseApp.auth().signInWithRedirect(this.firebaseApp.facebookProvider());
+  authenticate(auth) {
+    return auth(this.firebaseApp.auth());
   }
 
   invalidate() {

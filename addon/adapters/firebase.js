@@ -1,22 +1,20 @@
 import Adapter from '@ember-data/adapter';
 import { inject as service } from '@ember/service';
 import { pluralize } from 'ember-inflector';
-import { isPresent, isNone } from '@ember/utils';
-import { Promise } from 'rsvp';
-import { dasherize,camelize } from '@ember/string';
-import { getOwner } from '@ember/application';
 
 export default class FirebaseAdapter extends Adapter {
     @service firebaseApp;
     db = this.firebaseApp.firestore();
 
     async createRecord(store, type, snapshot) {
+        console.debug("Creating record, snapshot: ", snapshot.record);
+ 
         let collection = pluralize(type.modelName);
         let json = this.serialize(snapshot, { includeId: true });
 
-        let doc = await this.db.collection(collection).add(json);
-
-        return this.flattenRecord(await doc.get());
+        let ref = await this.db.collection(collection).add(json);
+                
+        return this.flattenRecord(await ref.get());
     }
 
     async updateRecord(store, type, snapshot) {    

@@ -31,10 +31,7 @@ export default class FirebaseSerializer extends JSONSerializer {
         }
 
         if (isSingle) {
-            if (store.hasRecordForId(primaryModelClass.modelName, payload.id)) {
-                store.unloadRecord(store.peekRecord(primaryModelClass.modelName, payload.id));
-            }
-
+            console.debug('Single response normalize payload', primaryModelClass, payload);
             return this.normalize(primaryModelClass, payload);
         } else {
             document.data = [];
@@ -98,6 +95,8 @@ export default class FirebaseSerializer extends JSONSerializer {
             let { data } = this.normalize(modelType, payload[model]);
             documentHash.data.push(data);
         });
+
+        console.debug("Pushpayload... pushing: ", documentHash);
 
         store.push(documentHash);
     }
