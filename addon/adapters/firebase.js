@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { pluralize } from 'ember-inflector';
 
 export default class FirebaseAdapter extends Adapter {
+    useFetch = true;
     @service firebaseApp;
     db = this.firebaseApp.firestore();
 

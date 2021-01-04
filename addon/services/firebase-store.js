@@ -12,7 +12,10 @@ export default class FirebaseStore extends Store {
         let querySnapshot = adapter._firebaseQuery(modelName, query);
         let self = this;
 
+        console.log("ListenQuery", modelName, query);
+
         return querySnapshot.onSnapshot((snapshot) => {
+            console.log("Listen", snapshot);            
             snapshot.docChanges().forEach(function(change) {
                 if (change.type === "added") {
                     console.debug('Adding new doc to the query: ', change.doc.id, change.doc.data(), change.doc.metadata);
